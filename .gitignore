@@ -1,0 +1,5 @@
+# Exclude content of db directory
+db/*
+
+# Exclude ENV file
+creds.json

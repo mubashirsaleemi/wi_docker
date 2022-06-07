@@ -1,0 +1,45 @@
+# Please follow the following steps to run docker environment for AutomotoHR
+
+# Run docker
+- docker-compose build (Optional as up commad will build it first)
+- docker-compose up
+
+# Handle database
+# Open a new tab and run command
+- docker ps
+
+# Copy database to mysql container
+- docker cp -i <container_id>:/db.sql
+
+# Copy the mysql container id and run commands
+- docker exec -it <container_Id> bash
+- mysql_secure_installation
+# Use P@ssword1 as the root password.
+
+# Run the following command to open MySQL shell
+- mysql -u root -p
+
+# Now, creates a new use by running the following commands
+- CREATE USER 'automotohr_user'@'%' IDENTIFIED WITH mysql_native_password BY 'P@ssword1';
+- GRANT ALL PRIVILEGES ON * . * TO 'automotohr_user'@'%';
+- FLUSH PRIVILEGES;
+- CREATE DATABASE automotohr;
+- USE automotohr;
+- source /db.sql
+
+# Make sure the following lines are added on hosts file
+127.0.0.1 automotohr.local www.automotohr.local
+127.0.0.1 ams.local www.ams.local
+127.0.0.1 devsupport.local www.devsupport.local
+
+That's it!!
+
+# Routes
+# AutomotoHR
+http://automotohr.local/
+# Automotosocial
+http://ams.local/
+# Company website
+http://devsupport.local/
+# PhpMyAdmin
+http://localhost:8080/

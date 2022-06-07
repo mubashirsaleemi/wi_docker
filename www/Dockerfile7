@@ -1,0 +1,17 @@
+FROM php:7.4.25-apache
+# Update APT
+RUN apt-get update
+# Install compile dependency
+RUN apt -y install gcc make autoconf libc-dev pkg-config
+# Install mcrypt dependency
+RUN apt-get install -y libmcrypt-dev
+# Install mcript plugin through PECL
+RUN pecl install mcrypt
+# Install php mysqli, pdo, pdo_mysql plugins
+RUN docker-php-ext-install pdo pdo_mysql mysqli
+# Enable apache rewrite
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+# Copy php ini
+COPY php.ini /etc/php.ini
+# Enable rewrite module
+RUN a2enmod rewrite
