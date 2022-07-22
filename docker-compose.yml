@@ -10,9 +10,13 @@ services:
       - mysql
     ports:
       - 80:80
+      - 5000:5000
+      - 8081:8081
     restart: always
     volumes:
       - ../admin/:/var/www/html/admin
+      - ../api/:/var/www/html/api
+      - ../uploads/:/var/www/html/uploads
       - ./creds.json:/var/www/html/creds.json
     networks:
       - wishit_network
